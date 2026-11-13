@@ -91,4 +91,8 @@ Matching 26px PNG company icons identify the employment history and are stored l
 [National Bank of Greece](https://www.nbg.gr/en/individuals).
 The PNG icons use the official site touch icons and favicons, converted to genuine
 PNG where needed. Deloitte's excess outer padding is cropped for small-size legibility.
+The Connect buttons use official black PNG marks from
+[LinkedIn's brand downloads](https://brand.linkedin.com/downloads) and
+[GitHub's logo pack](https://brand.github.com/foundations/logo), stored in the same folder.
+Their compact 18px size and monochrome artwork complement the existing cream buttons.
 Logos, certification artwork, and trademarks belong to their respective owners.

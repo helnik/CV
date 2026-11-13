@@ -240,6 +240,7 @@ h2 em { font-style: normal; color: #587d61; }
 .finish-description { color: #5f745d; font-size: 14px; margin: 24px 0; }
 .contact-actions { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 24px; }
 .contact-actions .button { font-size: 11px; padding: 13px 16px; gap: 12px; }
+.social-logo { display: block; width: 18px; height: 18px; object-fit: contain; flex-shrink: 0; }
 .finish-layout > div > .text-button { font-size: 11px; }
 .finish-card { background: #f6f3dd; border: 1px solid #9bac80; padding: 25px 28px 0; box-shadow: 8px 8px 0 #a4ba8a30; transform: rotate(2deg); max-width: 330px; }
 .finish-star { display: block; font-size: 45px; color: #c08b3f; margin-bottom: 12px; }
