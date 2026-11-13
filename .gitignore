@@ -1,0 +1,11 @@
+node_modules/
+dist/
+*.local
+*.tsbuildinfo
+.DS_Store
+# Private source documents are not needed by the published site.
+Chelmis-CV.md
+Profile.pdf
+Screenshot 2026-11-13 231942.jpg
+Screenshot 2026-11-14 001625.jpg
+pic.JPG
