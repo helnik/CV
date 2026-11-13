@@ -74,13 +74,17 @@ and a root URL or custom domain. No Azure service is needed.
   opens the browser print dialog; select "Save as PDF" to download a current copy.
 - Six featured badge buttons can be collected during a visit. Collection is cosmetic
   and never blocks access. Nothing is stored or tracked.
+- Reach the final world for a 1.6-second, original blue police-box flyby inspired by
+  Doctor Who. It plays once per adventure; return to the start to rearm it.
+  It passes above the final heading, including on stacked layouts. The Easter egg is
+  silent, non-interactive, and hidden with motion off, in Quick CV, and when printing.
 - Dialogs support Escape, focus trapping, and focus restoration. All content is
   accessible through normal buttons and links.
 
 Visuals and humor are original, with retro platformer and IT-office influences.
 This is a personal CV, not an official Nintendo or Microsoft site.
 
-Compact PNG company icons identify the employment history and are stored locally under
+Matching 26px PNG company icons identify the employment history and are stored locally under
 [public/logos](public/logos). Sources:
 [Agile Actors](https://www.agileactors.com),
 [Deloitte](https://www.deloitte.com/global/en.html), and

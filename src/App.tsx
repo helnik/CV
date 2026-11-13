@@ -53,6 +53,30 @@ function Avatar({ walking, jumping }: { walking: boolean; jumping: boolean }) {
   </div>;
 }
 
+function TardisFlyby({ onComplete }: { onComplete: () => void }) {
+  return <div className="tardis-lane" aria-hidden="true">
+    <div className="tardis-flyby" onAnimationEnd={onComplete}>
+      <svg viewBox="0 0 90 130" width="76" height="110">
+        <path d="M37 15V5h13v10" fill="#d9ffff" stroke="#255577" strokeWidth="3" />
+        <path d="M33 5h21M32 15h23" stroke="#183d64" strokeWidth="4" />
+        <path d="m15 26 12-10h36l12 10" fill="#326c98" stroke="#153656" strokeWidth="3" />
+        <path d="M10 28h70v94H10z" fill="#235589" stroke="#142f50" strokeWidth="4" />
+        <path d="M70 31h9v89h-9z" fill="#153d6b" />
+        <path d="M7 25h76v17H7z" fill="#132f4d" stroke="#40759d" strokeWidth="3" />
+        <text x="45" y="36" textAnchor="middle" fill="#f3f5dd" fontFamily="monospace" fontSize="8" fontWeight="bold">POLICE BOX</text>
+        <path d="M17 47h25v69H17zm30 0h19v69H47z" fill="#306b9f" stroke="#163b62" strokeWidth="3" />
+        <path d="M20 50h19v24H20zm30 0h13v24H50z" fill="#c1e7e5" />
+        <path d="M29 50v24m27-24v24M20 62h19m11 0h13" stroke="#376c94" strokeWidth="2" />
+        <path d="M20 81h19v13H20z" fill="#e9e9d8" />
+        <path d="M23 85h13m-13 4h10" stroke="#587686" strokeWidth="2" />
+        <path d="M50 81h13v13H50zm-30 20h19v12H20zm30 0h13v12H50z" fill="#245484" stroke="#163b62" strokeWidth="2" />
+        <path d="M44 83v11" stroke="#eee1ac" strokeWidth="3" />
+        <path d="M6 121h78v6H6z" fill="#183c64" stroke="#142f50" strokeWidth="3" />
+      </svg>
+    </div>
+  </div>;
+}
+
 function Tags({ items }: { items: string[] }) {
   return <div className="tags">{items.map(item => <span key={item}>{item}</span>)}</div>;
 }
@@ -113,6 +137,7 @@ export function App() {
   const [active, setActive] = useState(0);
   const [walking, setWalking] = useState(false);
   const [jumping, setJumping] = useState(false);
+  const [flyby, setFlyby] = useState<'ready' | 'flying' | 'done'>('ready');
   const [collected, setCollected] = useState<string[]>([]);
   const [modal, setModal] = useState<ModalContent | null>(null);
   const [reducedMotion, setReducedMotion] = useState(() => window.matchMedia('(prefers-reduced-motion: reduce)').matches);
@@ -145,6 +170,7 @@ export function App() {
   const switchMode = () => {
     if (mode === 'game') {
       savedProgress.current = window.scrollY;
+      setFlyby(current => current === 'flying' ? 'done' : current);
       setMode('resume');
       window.scrollTo({ top: 0, behavior: 'instant' });
     } else {
@@ -191,15 +217,23 @@ export function App() {
     let frame = 0;
     const update = () => {
       frame = 0;
+      const range = (journey.current?.offsetHeight ?? 0) - window.innerHeight;
+      const progress = range > 0 ? Math.max(0, Math.min(1, window.scrollY / range)) : 0;
+      if (!stacked && range > 0 && window.scrollY >= range - 2) {
+        setFlyby(current => current === 'ready' ? 'flying' : current);
+      } else if (window.scrollY <= 2) {
+        setFlyby('ready');
+      }
       if (stacked) {
         const sections = Array.from(document.querySelectorAll<HTMLElement>('.world'));
         const nearest = sections.reduce((best, section, index) =>
           Math.abs(section.getBoundingClientRect().top - 100) < Math.abs(sections[best].getBoundingClientRect().top - 100) ? index : best, 0);
         setActive(nearest);
+        if (nearest === worlds.length - 1 && sections[nearest].getBoundingClientRect().top <= 110) {
+          setFlyby(current => current === 'ready' ? 'flying' : current);
+        }
         return;
       }
-      const range = (journey.current?.offsetHeight ?? 0) - window.innerHeight;
-      const progress = range > 0 ? Math.max(0, Math.min(1, window.scrollY / range)) : 0;
       if (track.current) track.current.style.transform = `translate3d(${-progress * (worlds.length - 1) * window.innerWidth}px, 0, 0)`;
       setActive(Math.round(progress * (worlds.length - 1)));
     };
@@ -263,6 +297,7 @@ export function App() {
           <div className="world-track" ref={track}>
             {worlds.map((_, index) => <section key={index} id={`world-${index}`} className={`world world-${index}`} aria-labelledby={`world-title-${index}`} inert={!stacked && active !== index}>
               <Scenery index={index} />
+              {index === 5 && flyby === 'flying' && !reducedMotion && <TardisFlyby onComplete={() => setFlyby('done')} />}
               <div className="world-content">
                 {index === 0 && <div className="hero-layout">
                   <div className="hero-copy">
