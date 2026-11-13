@@ -23,14 +23,14 @@ npm run preview
 
 ## Publish on GitHub Pages
 
-Repository: [helnik/CV](https://github.com/helnik/CV).
-
-1. Open [Settings > Pages](https://github.com/helnik/CV/settings/pages).
-2. Under **Build and deployment > Source**, select **GitHub Actions**.
-3. Open [Actions > Deploy CV to GitHub Pages](https://github.com/helnik/CV/actions/workflows/deploy.yml).
+1. Push this project to the `main` branch of your GitHub repository.
+2. Open the repository's **Settings > Pages**. Under **Build and deployment > Source**,
+   select **GitHub Actions**.
+3. Open **Actions > Deploy CV to GitHub Pages** in your repository.
    Click **Run workflow**, select `main`, and click **Run workflow** again.
 4. Wait for both the `build` and `deploy` jobs to succeed.
-5. Visit **https://helnik.github.io/CV/**.
+5. Open the published site URL shown in **Settings > Pages**. For a project repository,
+   this is normally `https://<username>.github.io/<repository>/`.
 
 The included [deployment workflow](.github/workflows/deploy.yml) automatically
 publishes subsequent pushes to `main`. If the first deployment failed because
